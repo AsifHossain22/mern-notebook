@@ -1,0 +1,36 @@
+Backend: 
+NPMs:
+# npm install express@4.18.2
+# npm install nodemon -D
+
+=======
+
+# REST API: 
+It uses HTTP methods;
+
+GET --- Get some posts on instagram
+POST --- Create a post
+PUT --- Update a post 
+DELETE --- Delete a post
+
+=======
+
+# HTTP Status CODE:
+--- 100: Informational
+
+--- 200: Success
+--- 201: Created - New resource successfully created (e.g. after a POST request)
+
+--- 300: Redirection
+--- 301: Moved Permanently
+
+Client ERROR
+--- 400: Bad request - The request is malformed or invalid.
+--- 401: Unauthorized - You must log in (missing or invalid credintials).
+--- 403: Forbidden - You're not allow to access this site.
+--- 404: Not Found - The URL doesn't exist.
+--- 429: Too Many Requests
+
+Server ERROR
+--- 500: Internal Server ERROR - Something borke on the server.
+--- 503: Service Unavailable - Server is temporarily overloaded or down.
