@@ -1,14 +1,39 @@
-import { ArrowLeftIcon } from "lucide-react";
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { ArrowLeftIcon } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import axios from "axios";
+import api from "../lib/axios";
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!title.trim() || !content.trim()) {
+      toast.error("All fields are required");
+      return;
+    }
+    setLoading(true);
+    try {
+      await api.post("/notes", {
+        title,
+        content,
+      });
+      toast.success("Note created successfully");
+
+      navigate("/");
+    } catch (error) {
+      console.log("Failed to create. Error:", error);
+      toast.error("Failed to create note");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,6 +57,8 @@ const CreatePage = () => {
                       type="text"
                       className="input w-full"
                       placeholder="Note Title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </fieldset>
                   <fieldset className="fieldset">
@@ -39,6 +66,8 @@ const CreatePage = () => {
                     <textarea
                       className="textarea h-24 w-full"
                       placeholder="Write your note here..."
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
                     ></textarea>
                   </fieldset>
                 </div>
